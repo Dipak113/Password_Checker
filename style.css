@@ -1,0 +1,220 @@
+/* J.A.R.V.I.S. Security Core theme for the Password Security Checker */
+
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Share+Tech+Mono&display=swap');
+
+:root {
+    --jv-bg: #03060a;
+    --jv-panel: rgba(9, 20, 33, 0.6);
+    --jv-cyan: #00e5ff;
+    --jv-cyan-dim: rgba(0, 229, 255, 0.35);
+    --jv-green: #00ff9d;
+    --jv-amber: #ffb300;
+    --jv-red: #ff3b3b;
+    --jv-text: #d6f6ff;
+}
+
+html, body, [class*="css"] {
+    font-family: 'Share Tech Mono', monospace !important;
+    color: var(--jv-text);
+}
+
+/* ---- Background: HUD grid + radial glow + drifting scanlines ---- */
+[data-testid="stAppViewContainer"] {
+    background:
+        radial-gradient(ellipse at top, rgba(0, 229, 255, 0.10), transparent 60%),
+        repeating-linear-gradient(0deg, rgba(0, 229, 255, 0.035) 0px, rgba(0, 229, 255, 0.035) 1px, transparent 1px, transparent 40px),
+        repeating-linear-gradient(90deg, rgba(0, 229, 255, 0.035) 0px, rgba(0, 229, 255, 0.035) 1px, transparent 1px, transparent 40px),
+        var(--jv-bg);
+}
+
+[data-testid="stAppViewContainer"]::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(0, 229, 255, 0.025) 0px,
+        rgba(0, 229, 255, 0.025) 1px,
+        transparent 2px,
+        transparent 4px
+    );
+    z-index: 999;
+    animation: scan-drift 6s linear infinite;
+}
+
+@keyframes scan-drift {
+    from { background-position-y: 0; }
+    to   { background-position-y: 40px; }
+}
+
+[data-testid="stHeader"] {
+    background: transparent !important;
+}
+
+/* ---- Typography ---- */
+h1, h2, h3 {
+    font-family: 'Orbitron', sans-serif !important;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 0 0 14px var(--jv-cyan-dim);
+}
+
+/* ---- Bordered HUD panels (st.container(border=True)) ---- */
+[data-testid="stVerticalBlockBorderWrapper"] {
+    background: var(--jv-panel) !important;
+    border: 1px solid var(--jv-cyan-dim) !important;
+    border-radius: 8px !important;
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.08), inset 0 0 24px rgba(0, 229, 255, 0.03);
+    backdrop-filter: blur(6px);
+}
+
+/* ---- Text input ---- */
+[data-testid="stTextInputRootElement"] {
+    background: var(--jv-panel) !important;
+    border: 1px solid var(--jv-cyan-dim) !important;
+    border-radius: 6px !important;
+    box-shadow: inset 0 0 12px rgba(0, 229, 255, 0.05);
+}
+[data-testid="stTextInputRootElement"]:focus-within {
+    border-color: var(--jv-cyan) !important;
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.45);
+}
+input[type="password"], input[type="text"] {
+    color: var(--jv-cyan) !important;
+    font-family: 'Share Tech Mono', monospace !important;
+    letter-spacing: 2px;
+}
+[data-testid="stTextInputRootElement"] button {
+    color: var(--jv-cyan) !important;
+}
+
+/* Native Edge/IE password reveal icon doubles up with Streamlit's own eye icon */
+input[type="password"]::-ms-reveal,
+input[type="password"]::-ms-clear {
+    display: none;
+}
+
+/* ---- Buttons ---- */
+.stButton > button {
+    background: linear-gradient(135deg, rgba(0, 229, 255, 0.16), rgba(0, 229, 255, 0.03)) !important;
+    border: 1px solid var(--jv-cyan) !important;
+    color: var(--jv-cyan) !important;
+    font-family: 'Orbitron', sans-serif !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-radius: 4px !important;
+    transition: all 0.2s ease;
+}
+.stButton > button:hover {
+    background: rgba(0, 229, 255, 0.25) !important;
+    box-shadow: 0 0 16px rgba(0, 229, 255, 0.5);
+    color: #ffffff !important;
+}
+
+/* ---- Progress bar glow ---- */
+[data-testid="stProgress"] div div {
+    background: linear-gradient(90deg, #00ffc8, var(--jv-cyan)) !important;
+    box-shadow: 0 0 12px rgba(0, 229, 255, 0.7);
+}
+
+/* ---- Metrics ---- */
+[data-testid="stMetric"] {
+    background: var(--jv-panel) !important;
+    border: 1px solid var(--jv-cyan-dim) !important;
+    border-radius: 8px !important;
+    padding: 10px 14px !important;
+    box-shadow: 0 0 18px rgba(0, 229, 255, 0.08);
+}
+[data-testid="stMetricValue"] {
+    color: var(--jv-cyan) !important;
+    font-family: 'Orbitron', sans-serif !important;
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.6);
+    font-size: 1.35rem !important;
+    white-space: normal !important;
+    overflow: visible !important;
+    line-height: 1.3 !important;
+}
+[data-testid="stMetricValue"] p {
+    white-space: normal !important;
+    overflow-wrap: break-word !important;
+    overflow: visible !important;
+    text-overflow: clip !important;
+}
+[data-testid="stMetricLabel"] {
+    color: rgba(214, 246, 255, 0.6) !important;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 0.75rem !important;
+}
+
+/* ---- Alerts ---- */
+[data-testid="stAlert"] {
+    border-radius: 8px !important;
+    backdrop-filter: blur(4px);
+}
+
+/* ---- Expander ---- */
+[data-testid="stExpander"] {
+    background: var(--jv-panel) !important;
+    border: 1px solid var(--jv-cyan-dim) !important;
+    border-radius: 8px !important;
+}
+
+/* ---- Boot console ---- */
+.boot-console {
+    font-family: 'Share Tech Mono', monospace;
+    color: var(--jv-green);
+    background: #000000;
+    border: 1px solid var(--jv-cyan-dim);
+    border-radius: 6px;
+    padding: 16px;
+    box-shadow: 0 0 24px rgba(0, 229, 255, 0.15);
+    white-space: pre-wrap;
+    margin: 0;
+}
+
+/* ---- Activity log ---- */
+.log-panel {
+    max-height: 260px;
+    overflow-y: auto;
+    font-size: 0.85rem;
+}
+.log-line {
+    padding: 3px 0;
+    border-bottom: 1px dashed rgba(0, 229, 255, 0.12);
+}
+
+/* ---- Live status pill ---- */
+.status-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--jv-green);
+    letter-spacing: 1.5px;
+    margin-bottom: 6px;
+}
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--jv-green);
+    box-shadow: 0 0 8px var(--jv-green);
+    animation: pulse 1.6s ease-in-out infinite;
+}
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.4; transform: scale(0.7); }
+}
+
+/* ---- Section labels ---- */
+.hud-label {
+    font-family: 'Orbitron', sans-serif;
+    letter-spacing: 2px;
+    color: var(--jv-cyan);
+    text-shadow: 0 0 10px var(--jv-cyan-dim);
+    font-size: 0.95rem;
+    margin-bottom: 4px;
+}
