@@ -1,4 +1,4 @@
-# 🛡️ J.A.R.V.I.S. — Password Security Core
+# 🛡️ Password Security Core
 
 A real-time password strength checker built with Streamlit, styled as a dark,
 high-tech HUD dashboard. Type or generate a password and get an instant
