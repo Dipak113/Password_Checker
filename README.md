@@ -55,3 +55,5 @@ plus a bonus point for 12+ characters.
 | 0 – 2 | 🔴 Weak |
 | 3 – 4 | 🟡 Medium |
 | 5 – 6 | 🟢 Strong |
+
+Deployed application URL - https://passwordchecker-iqtvwxvh4mmbzqjjc6mgqr.streamlit.app/
